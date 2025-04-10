@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Payment Approvals</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .payment { border: 1px solid #ccc; padding: 10px; margin: 10px 0; }
+        img { max-width: 300px; }
+        select { margin-bottom: 20px; padding: 5px; }
+        #loginOverlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #loginBox {
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+        #loginBox input {
+            display: block;
+            margin: 10px auto;
+            padding: 5px;
+            width: 200px;
+        }
+        #loginBox button {
+            padding: 5px 15px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div id="loginOverlay">
+        <div id="loginBox">
+            <h2>Admin Login</h2>
+            <input type="text" id="adminUsername" placeholder="Username" required>
+            <input type="password" id="adminPassword" placeholder="Password" required>
+            <button onclick="verifyAdmin()">Login</button>
+            <p id="loginError" style="color: red;"></p>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden Initially) -->
+    <div id="mainContent" class="hidden">
+        <h1>Pending Payments</h1>
+        <label for="gameSelect">Select Game:</label>
+        <select id="gameSelect" onchange="loadPayments()">
+            <option value="freefire">Freefire</option>
+            <option value="pubg">PUBG</option>
+        </select>
+        <div id="paymentList"></div>
+    </div>
+
+    <script>
+        function verifyAdmin() {
+            const username = document.getElementById("adminUsername").value.trim();
+            const password = document.getElementById("adminPassword").value.trim();
+            const errorElement = document.getElementById("loginError");
+            const loginOverlay = document.getElementById("loginOverlay");
+            const mainContent = document.getElementById("mainContent");
+
+            // Send credentials to backend for verification
+            fetch('https://crzk456r-5000.inc1.devtunnels.ms/admin-login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.message === 'Login successful') {
+                    loginOverlay.style.display = "none"; // Hide overlay
+                    mainContent.classList.remove("hidden"); // Show main content
+                    loadPayments(); // Load payments after successful login
+                } else {
+                    errorElement.textContent = data.error || "Invalid username or password.";
+                }
+            })
+            .catch(err => {
+                console.error("Login error:", err);
+                errorElement.textContent = "Error connecting to server. Please try again.";
+            });
+        }
+
+        function loadPayments() {
+            const gameType = document.getElementById("gameSelect").value;
+            fetch(`https://crzk456r-5000.inc1.devtunnels.ms/pending-payments?game_type=${gameType}`)
+            .then(res => res.json())
+            .then(payments => {
+                const list = document.getElementById("paymentList");
+                list.innerHTML = "";
+                payments.forEach(p => {
+                    const div = document.createElement("div");
+                    div.className = "payment";
+                    div.innerHTML = `
+                        <p>Type: ${p.type}</p>
+                        <p>Reg ID: ${p.reg_id}</p>
+                        ${p.type === "team" ? `<p>Team: ${p.team_name}</p>` : `<p>Name: ${p.name}</p>`}
+                        <p>Email: ${p.email || p.members[0].email}</p>
+                        <p>UID: ${p.uid || p.members[0].uid}</p>
+                        <p>Amount: ₹${p.amount}</p>
+                        <img src="/screenshots/${p.screenshot.split('/').pop()}" alt="Screenshot" onerror="this.src='default-image.jpg';">
+                        <button onclick="confirmPayment('${p.reg_id}', '${gameType}')">Confirm Payment</button>
+                    `;
+                    list.appendChild(div);
+                });
+            })
+            .catch(err => {
+                console.error("Error loading payments:", err);
+                document.getElementById("paymentList").innerHTML = "<p>Error loading payments.</p>";
+            });
+        }
+
+        function confirmPayment(regId, gameType) {
+            fetch('https://crzk456r-5000.inc1.devtunnels.ms/confirm-payment', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ reg_id: regId, game_type: gameType })
+            })
+            .then(res => res.json())
+            .then(data => {
+                alert("Payment confirmed!");
+                loadPayments();
+            })
+            .catch(err => {
+                console.error("Error confirming payment:", err);
+                alert("Error confirming payment.");
+            });
+        }
+
+        // Auto-refresh only after login
+        setInterval(() => {
+            if (document.getElementById("loginOverlay").style.display === "none") {
+                loadPayments();
+            }
+        }, 30000);
+    </script>
+</body>
+</html>

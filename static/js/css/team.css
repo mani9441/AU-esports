@@ -1,0 +1,61 @@
+.team_area {
+    background-color: #f8f9fa; /* Optional: Add a background color */
+}
+
+.single_team {
+    margin-bottom: 30px;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    transition: transform 0.3s ease; /* Optional: Smooth transform */
+}
+
+.single_team:hover {
+    transform: translateY(-5px); /* Optional: Slight lift on hover */
+}
+
+.team_member_img {
+    position: relative;
+}
+
+.team_member_img img {
+    width: 100%;
+    display: block;
+}
+
+.team_member_img .social_icon {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px 0;
+    background-color: rgba(0, 0, 0, 0.7);
+    transform: translateY(100%); /* Initially hidden */
+    transition: transform 0.3s ease;
+}
+
+.team_member_img:hover .social_icon {
+    transform: translateY(0); /* Show on hover */
+}
+
+.team_member_img .social_icon a {
+    color: white;
+    margin: 0 10px;
+    font-size: 18px;
+}
+
+.team_member_content {
+    padding: 20px;
+}
+
+.team_member_content h4 {
+    margin-bottom: 5px;
+    color: #333;
+    font-size: 20px;
+}
+
+.team_member_content p {
+    color: #777;
+    font-size: 16px;
+}
