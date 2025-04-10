@@ -332,7 +332,7 @@ Copyright ©<script>document.write(new Date().getFullYear());</script> All right
                 return false;
             }
             
-            fetch('https://crzk456r-5000.inc1.devtunnels.ms/get_id', {
+            fetch('/get_id', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -347,7 +347,7 @@ Copyright ©<script>document.write(new Date().getFullYear());</script> All right
             .then(data => {
                 if (!data.reg_id) throw new Error("No reg_id in response");
                 console.log("Redirecting to payment.html with reg_id:", data.reg_id);
-                window.location.href = `https://crzk456r-5500.inc1.devtunnels.ms/payment.html?reg_id=${data.reg_id}&game_type=pubg&amount=50&email=${email}&uid=${uid}&username=${username}&parameter=${parameter}`;
+                window.location.href = `/payment.html?reg_id=${data.reg_id}&game_type=pubg&amount=50&email=${email}&uid=${uid}&username=${username}&parameter=${parameter}`;
             })
 
             .catch(err => {
@@ -414,7 +414,7 @@ Copyright ©<script>document.write(new Date().getFullYear());</script> All right
                 }
             }
             
-            fetch('https://crzk456r-5000.inc1.devtunnels.ms/get_id', {
+            fetch('/get_id', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -430,7 +430,7 @@ Copyright ©<script>document.write(new Date().getFullYear());</script> All right
             .then(data => {
                 if (!data.reg_id) throw new Error("No reg_id in response");
                 console.log("Redirecting to payment.html with reg_id:", data.reg_id);
-                window.location.href = `https://crzk456r-5500.inc1.devtunnels.ms/payment.html?reg_id=${data.reg_id}&game_type=pubg&amount=200&menbers=${members}&parameter=${parameter}`;
+                window.location.href = `/payment.html?reg_id=${data.reg_id}&game_type=pubg&amount=200&menbers=${members}&parameter=${parameter}`;
             })
             .catch(err => {
                 console.error("Error in team registration:", err);

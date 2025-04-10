@@ -191,7 +191,7 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
                 const username = urlParams.get("username");
                 const uid = urlParams.get("uid");
     
-                fetch('https://crzk456r-5000.inc1.devtunnels.ms/register_', {
+                fetch('/register_', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, username, uid, parameter, regId, gameType })
@@ -201,7 +201,7 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
             } else if (parameter === "TEAM") {
                 const members = urlParams.get("members");
     
-                fetch("https://crzk456r-5000.inc1.devtunnels.ms/register_", {
+                fetch("/register_", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({
@@ -245,7 +245,7 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
             formData.append("reg_id", regId);
             formData.append("game_type", gameType);
     
-            fetch("https://crzk456r-5000.inc1.devtunnels.ms/upload-payment", {
+            fetch("/upload-payment", {
                 method: "POST",
                 body: formData
             })
@@ -254,7 +254,7 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
                 alert("Screenshot uploaded successfully! Awaiting admin confirmation.");
                 document.body.innerHTML += `<p>Your Registration ID: ${regId}</p>`;
                 setTimeout(() => {
-                    window.location.href = "https://crzk456r-5500.inc1.devtunnels.ms/index.html";
+                    window.location.href = "/index.html";
                 }, 5000);
             })
             .catch(err => {
