@@ -116,7 +116,7 @@
                         <p>Email: ${p.email || p.members[0].email}</p>
                         <p>UID: ${p.uid || p.members[0].uid}</p>
                         <p>Amount: ₹${p.amount}</p>
-                        <img src="/screenshots/${p.screenshot.split('/').pop()}" alt="Screenshot" onerror="this.src='default-image.jpg';">
+                        <img src="static/screenshots/${p.screenshot.split('/').pop()}" alt="Screenshot" onerror="this.src='default-image.jpg';">
                         <button onclick="confirmPayment('${p.reg_id}', '${gameType}')">Confirm Payment</button>
                     `;
                     list.appendChild(div);
