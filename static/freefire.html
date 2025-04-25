@@ -405,10 +405,7 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
                 return false;
             }
             
-            if (!uidRegex.test(m.uid)) {
-                alert(`UID of Member ${i + 1} must be exactly 10 digits.`);
-                return false;
-            }
+            
             
             if (i === 0) {
                 if (!m.email || !emailRegex.test(m.email)) {
