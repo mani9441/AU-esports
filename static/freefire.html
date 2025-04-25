@@ -431,7 +431,7 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
         .then(data => {
             if (!data.reg_id) throw new Error("No reg_id in response");
             console.log("Redirecting to payment.html with reg_id:", data.reg_id);
-            window.location.href = `/payment.html?reg_id=${data.reg_id}&game_type=freefire&amount=200&menbers=${membersSerialized}&parameter=${parameter}`;
+            window.location.href = `/payment.html?reg_id=${data.reg_id}&game_type=freefire&amount=200&members=${membersSerialized}&parameter=${parameter}`;
         })
         .catch(err => {
             console.error("Error in team registration:", err);
