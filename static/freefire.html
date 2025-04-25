@@ -326,7 +326,7 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
 
 
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            const uidRegex = /^\d{10}$/;
+            
             
             if (!email || !username || !uid) {
                 alert("Please fill in all the fields.");
@@ -401,8 +401,6 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
                 alert(`Please enter both username and UID for Member ${i + 1}.`);
                 return false;
             }
-            
-            
             
             if (i === 0) {
                 if (!m.email || !emailRegex.test(m.email)) {
