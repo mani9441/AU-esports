@@ -332,10 +332,7 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
                 alert("Please fill in all the fields.");
                 return false;
             }
-            if (!uidRegex.test(uid)) {
-                alert("User ID must be exactly 10 digits and contain only numbers.");
-                return false;
-            }
+            
             if (!emailRegex.test(email)) {
                 alert("Please enter a valid email address.");
                 return false;
@@ -394,7 +391,7 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
         ];
         
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        const uidRegex = /^\d{10}$/;
+        
         const parameter = "TEAM";
 
         for (let i = 0; i < members.length; i++) {
