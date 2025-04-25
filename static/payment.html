@@ -204,7 +204,10 @@ This Website is made with <i class="ti-heart" aria-hidden="true"></i> by <a href
                     sessionStorage.setItem("registered_" + regId, "true");
                 });
             } else if (parameter === "TEAM") {
-                const members = urlParams.get("members");
+                const membersSerialized = urlParams.get("members");
+
+                // Deserialize the members data (it's URL-encoded, so decode it first)
+                const members = JSON.parse(decodeURIComponent(membersSerialized));
     
                 fetch("/register_", {
                     method: "POST",
